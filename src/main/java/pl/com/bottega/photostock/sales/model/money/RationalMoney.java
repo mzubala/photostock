@@ -1,7 +1,5 @@
 package pl.com.bottega.photostock.sales.model.money;
 
-import pl.com.bottega.photostock.sales.model.Rational;
-
 class RationalMoney implements Money {
 
     public Money opposite() {
@@ -31,27 +29,11 @@ class RationalMoney implements Money {
         return new RationalMoney(value.multiply(factor), currency);
     }
 
-    public boolean gte(Money other) {
-        return compareTo(other) >= 0;
-    }
-
-    public boolean gt(Money other) {
-        return compareTo(other) > 0;
-    }
-
-    public boolean lte(Money other) {
-        return compareTo(other) <= 0;
-    }
-
     public int compareTo(Money other) {
         RationalMoney rationalMoney = other.convertToRational();
         if (!rationalMoney.currency.equals(currency))
             throw new IllegalArgumentException("Currency missmatch");
         return value.compareTo(rationalMoney.value);
-    }
-
-    public boolean lt(Money other) {
-        return compareTo(other) < 0;
     }
 
     private final Rational value;
@@ -88,5 +70,11 @@ class RationalMoney implements Money {
     @Override
     public RationalMoney convertToRational() {
         return this;
+    }
+
+    @Override
+    public IntegerMoney convertToInteger() {
+        long cents = value.getNumerator() * 100 / value.getDenominator();
+        return new IntegerMoney(cents, currency);
     }
 }

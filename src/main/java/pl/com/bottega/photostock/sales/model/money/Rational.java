@@ -1,4 +1,4 @@
-package pl.com.bottega.photostock.sales.model;
+package pl.com.bottega.photostock.sales.model.money;
 
 public final class Rational implements Comparable<Rational> {
     public static Rational ZERO = new Rational(0, 1);
@@ -102,6 +102,14 @@ public final class Rational implements Comparable<Rational> {
             return 0;
 
         return (numerator * number.denominator) > (number.numerator * denominator) ? 1 : -1;
+    }
+
+    long getNumerator() {
+       return numerator;
+    }
+
+    long getDenominator() {
+        return denominator;
     }
 
     @Override
