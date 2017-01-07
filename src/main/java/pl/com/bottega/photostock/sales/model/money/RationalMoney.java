@@ -50,24 +50,6 @@ class RationalMoney implements Money {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RationalMoney)) return false;
-
-        RationalMoney money = (RationalMoney) o;
-
-        if (!value.equals(money.value)) return false;
-        return currency == money.currency;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = value.hashCode();
-        result = 31 * result + currency.hashCode();
-        return result;
-    }
-
-    @Override
     public RationalMoney convertToRational() {
         return this;
     }
@@ -77,4 +59,23 @@ class RationalMoney implements Money {
         long cents = value.getNumerator() * 100 / value.getDenominator();
         return new IntegerMoney(cents, currency);
     }
+
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof Money))
+            return false;
+        RationalMoney rationalMoney;
+        if (other instanceof IntegerMoney)
+            rationalMoney = ((IntegerMoney) other).convertToRational();
+        else
+            rationalMoney = (RationalMoney) other;
+        return rationalMoney.value.equals(value) && rationalMoney.currency == currency;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value.hashCode();
+        result = 31 * result + currency.hashCode();
+        return result;
+    }
+
 }

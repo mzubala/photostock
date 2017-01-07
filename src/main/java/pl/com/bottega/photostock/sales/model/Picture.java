@@ -23,4 +23,8 @@ public class Picture extends AbstractProduct {
         return catalogPrice;
     }
 
+    public boolean hasTag(String tag) {
+        return tags.contains(tag);
+    }
+
 }

@@ -46,7 +46,7 @@ class IntegerMoney implements Money {
     @Override
     public int compareTo(Money o) {
         IntegerMoney integerMoney = safeConvert(o);
-        if(cents == integerMoney.cents)
+        if (cents == integerMoney.cents)
             return 0;
         else if (cents < integerMoney.cents)
             return -1;
@@ -64,4 +64,21 @@ class IntegerMoney implements Money {
         ensureSameCurrency(integerMoney);
         return integerMoney;
     }
+
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof Money))
+            return false;
+        IntegerMoney integerMoney;
+        if (other instanceof RationalMoney)
+            integerMoney = ((RationalMoney) other).convertToInteger();
+        else
+            integerMoney = (IntegerMoney) other;
+        return integerMoney.cents == cents && integerMoney.currency == currency;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d.%02d %s", cents / 100, cents % 100, currency.name());
+    }
+
 }
