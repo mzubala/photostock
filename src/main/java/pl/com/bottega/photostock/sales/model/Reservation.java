@@ -3,6 +3,7 @@ package pl.com.bottega.photostock.sales.model;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class Reservation {
 
@@ -10,8 +11,11 @@ public class Reservation {
 
     private Collection<Product> items;
 
+    private String number;
+
     public Reservation(Client client) {
         this.client = client;
+        this.number = UUID.randomUUID().toString();
         this.items = new LinkedList<>();
     }
 
@@ -20,12 +24,14 @@ public class Reservation {
             throw new IllegalArgumentException(String.format("Product %s is already in this reservation", product.getNumber()));
         product.ensureAvailable();
         items.add(product);
+        product.reservedPer(client);
     }
 
     public void remove(Product product) {
         if(!items.contains(product))
             throw new IllegalArgumentException(String.format("Product %s is not added to this reservation.", product.getNumber()));
         items.remove(product);
+        product.unreservedPer(client);
     }
 
     public Offer generateOffer() {
@@ -44,4 +50,11 @@ public class Reservation {
         return items.size();
     }
 
+    public String getNumber() {
+        return number;
+    }
+
+    public boolean isOwnedBy(String clientNumber) {
+        return client.getNumber().equals(clientNumber);
+    }
 }

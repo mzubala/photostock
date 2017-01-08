@@ -4,8 +4,11 @@ import pl.com.bottega.photostock.sales.model.money.Money;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class Client {
+
+    private static int clientNumber;
 
     private String name;
 
@@ -17,6 +20,10 @@ public class Client {
 
     private Collection<Transaction> transactions;
 
+    private boolean active = true;
+
+    private String number;
+
     public Client(String name, Address address, ClientStatus status,
                   Money initialBalance) {
         this.name = name;
@@ -24,8 +31,15 @@ public class Client {
         this.status = status;
         this.balance = initialBalance;
         this.transactions = new LinkedList<>();
+        this.number = nextNumber();
+
         if (!initialBalance.equals(Money.ZERO))
             this.transactions.add(new Transaction(initialBalance, "Openning account"));
+    }
+
+    private static String nextNumber() {
+        clientNumber += 100;
+        return String.valueOf(clientNumber);
     }
 
     public Client(String name, Address address, Money balance) {
@@ -67,4 +81,15 @@ public class Client {
         return String.format("%s - %s", name, statusName);
     }
 
+    public void deactivate() {
+        active = false;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getNumber() {
+        return number;
+    }
 }
