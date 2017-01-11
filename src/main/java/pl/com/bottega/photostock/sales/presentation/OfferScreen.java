@@ -19,8 +19,13 @@ public class OfferScreen {
 
     public void print() {
         String reservationNumber = purchaseProcess.getReservation(loginScreen.getAuthenticatedClientNumber());
-        Offer offer = purchaseProcess.calculateOffer(reservationNumber);
-        printOffer(offer);
+        try {
+            Offer offer = purchaseProcess.calculateOffer(reservationNumber);
+            printOffer(offer);
+        }
+        catch(IllegalStateException ex) {
+            System.out.println("Nie ma aktywnych produktów w rezerwacji. Dodaj produkty!!!");
+        }
     }
 
     private void printOffer(Offer offer) {
