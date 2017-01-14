@@ -39,9 +39,10 @@ public class LightBoxScreen {
                 showLightBoxes();
                 return;
             }
-            if (cmd[0].equals("powrot"))
+            if (cmd[0].equals("powrot")) {
                 exit = true;
-            return;
+                return;
+            }
         } else if (cmd.length == 2) {
             if (cmd[0].equals("pokaz")) {
                 showLightBox(cmd[1]);
