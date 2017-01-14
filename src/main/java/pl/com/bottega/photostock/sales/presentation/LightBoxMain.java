@@ -29,7 +29,7 @@ public class LightBoxMain {
         PurchaseProcess purchaseProcess = new PurchaseProcess(clientRepository, reservationRepository,
                 productRepository, purchaseRepository);
         LightBoxRepository lightBoxRepository = new InMemoryLightBoxRepository();
-        LightBoxManagement lightBoxManagement = new LightBoxManagement(lightBoxRepository, productRepository, clientRepository);
+        LightBoxManagement lightBoxManagement = new LightBoxManagement(purchaseProcess, lightBoxRepository, productRepository, clientRepository);
         loginScreen = new LoginScreen(scanner, authenticationProcess);
         searchScreen = new SearchScreen(scanner, productCatalog, loginScreen);
         reservationScreen = new ReservationScreen(scanner, loginScreen, purchaseProcess);
