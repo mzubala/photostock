@@ -31,7 +31,7 @@ public class SearchScreen {
     }
 
     private void printProducts(Client client, List<Product> products) {
-        System.out.println("Matching products: ");
+        System.out.println("Znalezione produkty: ");
         for (Product product : products) {
             System.out.println(
                     String.format("%s | %s %s",
@@ -50,8 +50,7 @@ public class SearchScreen {
                 float f = scanner.nextFloat();
                 scanner.nextLine();
                 return Money.valueOf(f);
-            }
-            catch (InputMismatchException ex) {
+            } catch (InputMismatchException ex) {
                 scanner.nextLine();
                 System.out.println("Wprowadź poprawną cenę np. 9,99");
             }

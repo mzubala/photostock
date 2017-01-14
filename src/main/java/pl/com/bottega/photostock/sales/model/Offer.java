@@ -20,7 +20,7 @@ public class Offer {
     }
 
     public boolean sameAs(Offer other, Money money) {
-        return false;
+        return true;
     }
 
     public int getItemsCount() {

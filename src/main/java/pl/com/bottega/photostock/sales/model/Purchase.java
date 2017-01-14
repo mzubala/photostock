@@ -5,13 +5,23 @@ import java.util.*;
 public class Purchase {
 
     private Client client;
-    private Date purchaseDate;
+    private Date purchaseDate = new Date();
     private List<Product> items;
+
+    private String number;
 
     public Purchase(Client client, Collection<Product> items) {
         this.client = client;
         this.items = new LinkedList<>(items);
+        this.number = UUID.randomUUID().toString();
         sortProductsByNumberAsc();
+        markProductsAsSold();
+    }
+
+    private void markProductsAsSold() {
+        for (Product product : items) {
+            product.soldPer(client);
+        }
     }
 
     public Purchase(Client client, Product... items) {
@@ -31,6 +41,10 @@ public class Purchase {
                 return n1.compareTo(n2);
             }
         });
+    }
+
+    public String getNumber() {
+        return number;
     }
 
 }
