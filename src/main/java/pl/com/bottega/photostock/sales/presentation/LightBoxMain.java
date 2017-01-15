@@ -27,7 +27,7 @@ public class LightBoxMain {
         Scanner scanner = new Scanner(System.in);
         ProductRepository productRepository = new InMemoryProductRepository();
         ProductCatalog productCatalog = new ProductCatalog(productRepository);
-        ClientRepository clientRepository = new CSVClientRepository("/home/maciuch/tmp/photostockData/clients.csv");
+        ClientRepository clientRepository = new CSVClientRepository("/home/maciuch/tmp/photostockData");
         AuthenticationProcess authenticationProcess = new AuthenticationProcess(clientRepository);
         ReservationRepository reservationRepository = new InMemoryReservationRepository();
         PurchaseRepository purchaseRepository = new InMemoryPurchaseRepository();

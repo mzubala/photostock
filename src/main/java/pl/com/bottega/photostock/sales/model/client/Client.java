@@ -104,4 +104,8 @@ public class Client {
     public Money getBalance() {
         return balance;
     }
+
+    public Collection<Transaction> getTransactions() {
+        return new LinkedList<>(transactions);
+    }
 }

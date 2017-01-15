@@ -6,15 +6,15 @@ import pl.com.bottega.photostock.sales.model.money.Money;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 
 public class CSVClientRepository implements ClientRepository {
 
-    private String path, tmpPath;
+    private String path, tmpPath, folderPath;
 
-    public CSVClientRepository(String path) {
-        this.path = path;
+    public CSVClientRepository(String folderPath) {
+        this.folderPath = folderPath;
+        this.path = folderPath + File.separator + "clients.csv";
         this.tmpPath = path + ".tmp";
     }
 
@@ -55,6 +55,12 @@ public class CSVClientRepository implements ClientRepository {
             throw new DataAccessException(e);
         }
         replaceFiles();
+        updateTransactions(client);
+    }
+
+    private void updateTransactions(Client client) {
+        CSVTransactionRepository transactionRepository = new CSVTransactionRepository(folderPath);
+        transactionRepository.saveTransactions(client.getNumber(), client.getTransactions());
     }
 
     private void writeClient(Client client, PrintWriter printWriter) {
