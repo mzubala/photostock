@@ -21,6 +21,22 @@ public class Client {
 
     private boolean active;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        return number.equals(client.number);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return number.hashCode();
+    }
+
     private String number;
 
     public Client(String name, Address address, ClientStatus status,

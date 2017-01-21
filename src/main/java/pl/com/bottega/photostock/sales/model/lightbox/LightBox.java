@@ -20,6 +20,12 @@ public class LightBox implements Iterable<Product> {
         this.client = client;
     }
 
+    public LightBox(Client client, String name, Collection<Product> products) {
+        this.name = name;
+        this.client = client;
+        this.items.addAll(products);
+    }
+
     public void add(Product product) {
         if (items.contains(product)) {
             throw new IllegalArgumentException(String.format("Product %s is already in this LightBox", product.getNumber()));

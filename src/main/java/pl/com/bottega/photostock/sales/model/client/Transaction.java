@@ -14,9 +14,13 @@ public class Transaction {
     private LocalDateTime timestamp;
 
     public Transaction(Money value, String description) {
+        this(value, description, LocalDateTime.now());
+    }
+
+    public Transaction(Money value, String description, LocalDateTime transactionDate) {
         this.value = value;
         this.description = description;
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = transactionDate;
     }
 
     public Money getValue() {

@@ -6,6 +6,7 @@ import pl.com.bottega.photostock.sales.model.money.Money;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 
 public class CSVClientRepository implements ClientRepository {
@@ -84,13 +85,19 @@ public class CSVClientRepository implements ClientRepository {
         boolean active = Boolean.valueOf(attributes[2]);
         ClientStatus status = ClientStatus.valueOf(attributes[3]);
         Money balance = Money.valueOf(attributes[4]);
+        Collection<Transaction> transactions = getTransactions(number);
         if (status.equals(ClientStatus.VIP)) {
             Money creditLimit = Money.valueOf(attributes[5]);
             return new VIPClient(number, name, new Address(), balance,
-                    creditLimit, active, new LinkedList<>());
+                    creditLimit, active, transactions);
         } else
             return new Client(number, name, new Address(), status,
-                    balance, active, new LinkedList<>());
+                    balance, active, transactions);
+    }
+
+    public Collection<Transaction> getTransactions(String clientNumber) {
+        CSVTransactionRepository repo = new CSVTransactionRepository(folderPath);
+        return repo.getTransactions(clientNumber);
     }
 
     private void replaceFiles() {
